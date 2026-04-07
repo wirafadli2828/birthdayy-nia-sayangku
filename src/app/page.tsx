@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import GestureScanner from '@/components/GestureScanner'; // <--- Ini sensor jarinya
 import Gatekeeper from '@/components/Gatekeeper';
 import FloatingMusic from '@/components/FloatingMusic';
 import Hero from '@/components/Hero';
 import Timeline from '@/components/Timeline';
 import Reasons from '@/components/Reasons';
 import FinalWish from '@/components/FinalWish';
+import CursorFollower from '@/components/CursorFollower';
 
 export default function Home() {
-  const [unlocked, setUnlocked] = useState(false);
+  const [step, setStep] = useState('scanner'); // Mulai dari 'scanner'
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -18,24 +20,27 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full flex min-h-screen flex-col items-center justify-between">
-      <AnimatePresence>
-        {!unlocked && <Gatekeeper key="gatekeeper" audio={audio} onUnlock={() => setUnlocked(true)} />}
+    <main className="w-full min-h-screen bg-ivory overflow-x-hidden">
+      <CursorFollower />
+
+      <AnimatePresence mode="wait">
+        {step === 'scanner' && (
+          <GestureScanner key="scanner" onUnlock={() => setStep('gatekeeper')} />
+        )}
+
+        {step === 'gatekeeper' && (
+          <Gatekeeper key="gatekeeper" audio={audio} onUnlock={() => setStep('final')} />
+        )}
       </AnimatePresence>
 
-      {unlocked && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          className="w-full"
-        >
+      {step === 'final' && (
+        <>
           <FloatingMusic audio={audio} />
           <Hero />
           <Timeline />
           <Reasons />
           <FinalWish />
-        </motion.div>
+        </>
       )}
     </main>
   );
