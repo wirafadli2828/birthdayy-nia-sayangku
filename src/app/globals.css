@@ -1,15 +1,15 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-ivory: #FFFFF0;
-  --color-cream: #FFFDD0;
-  --color-green: #A9BA9D;
-  --color-gold: #D4AF37;
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-montserrat);
+:root {
+  --font-playfair: 'Playfair Display', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
+  background-color: #FFFFF0; /* Ivory */
+  color: #A9BA9D; /* Soft Green */
 }
