@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ivory: #FFFFF0;
+  --color-cream: #FFFDD0;
+  --color-green: #A9BA9D;
+  --color-gold: #D4AF37;
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-montserrat);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,7 @@
+Add your images here:
+- photo1.jpg
+- photo2.jpg
+- photo3.jpg
+- music.mp3
+
+The app is built to use these file names!
